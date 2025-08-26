@@ -16,24 +16,30 @@
     @font-face {src: url('Karla-Bold.ttf'); font-family: 'Karla'; font-weight: 700;}
     body{font-family: 'Karla';}
     input{border: solid hsl(186, 15%, 59%) 1px; border-radius: 4px}
+    .required::after{content: ' *'; color: hsl(169, 82%, 27%)}
   </style>
   </style>
 </head>
 <body class="bg-green-200 flex flex-col items-center">
-<main class="flex flex-col rounded-2xl bg-white w-xs p-4 mt-2">
+<main class="flex flex-col rounded-2xl bg-white w-xs p-4 mt-2 gap-y-[20px]">
   <h1 class="text-2xl font-bold">Contact Us</h1>
+  <section class="flex flex-col">
+    <label for="firstname" class="required">First Name</label>
+    <input type="text" name="firstname" class="h-[7vh]">
+  </section>
 
-  <label for="firstname">First Name</label>
-  <input type="text" name="firstname">
+  <section class="flex flex-col">
+    <label for="lastname" class="required">Last Name</label>
+    <input type="text" name="lastname" class="h-[7vh]">
+  </section>
 
-  <label for="lastname">Last Name</label>
-  <input type="text" name="lastname">
-
-  <label for="email">Email Address</label>
-  <input type="email" name="email" id="">
-  <!--Please enter a valid email address-->
-  <section>
-    Query Type
+  <section class="flex flex-col">
+    <label for="email" class="required">Email Address</label>
+    <input type="email" name="email" id="" class="h-[7vh]">
+    <!--Please enter a valid email address-->
+  </section>
+  <section class="flex flex-col">
+    <h2 class="required">Query Type</h2>
     <div class="flex flex-row">
       <input type="radio" name="general" id="" value="general">
       <label for="general" class='ml-1'>General Enquiry</h2>
@@ -42,17 +48,19 @@
       <input type="radio" name="general" id="" value="support">
       <label for="support" class='ml-1'>Support Request</label>
     </div>
-    Please select a query type
+    <!--Please select a query type-->
     </section>
-  <label for="message">Message</label>
-  <input type="text" name="message">
-  This field is required
+  <section class="flex flex-col">
+    <label for="message" class="required">Message</label>
+    <input type="text" name="message" class="h-[50vh]">
+    <!--This field is required-->
+  </section>
 
   <section class="flex flex-row">
     <input type="checkbox" name="vazhno" id="">
-    <label for="vazhno" class='ml-1'>I consent to being contacted by the team</label>
+    <label for="vazhno" class='ml-5'>I consent to being contacted by the team</label>
   </section>
-  To submit this form, please consent to being contacted
+  <!--To submit this form, please consent to being contacted-->
 
   <button class="p-4 bg-emerald-700 text-white font-bold rounded-md">Submit</button>
 
