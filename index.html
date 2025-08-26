@@ -15,44 +15,53 @@
     @font-face {src: url('Karla-Regular.ttf'); font-family: 'Karla'; font-weight: 400;}
     @font-face {src: url('Karla-Bold.ttf'); font-family: 'Karla'; font-weight: 700;}
     body{font-family: 'Karla';}
-    input{border: solid hsl(186, 15%, 59%) 1px; border-radius: 4px}
+    input, .radios{border: solid hsl(186, 15%, 59%) 1px; border-radius: 6px}
     .required::after{content: ' *'; color: hsl(169, 82%, 27%)}
   </style>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+    @theme{
+      --color-green-200: hsl(148, 38%, 91%);
+      --color-green-600: hsl(169, 82%, 27%);
+    }
+    label, h2{
+      color: hsl(187, 24%, 22%);
+    }
   </style>
 </head>
 <body class="bg-green-200 flex flex-col items-center">
-<main class="flex flex-col rounded-2xl bg-white w-xs p-4 mt-2 gap-y-[20px]">
+<main class="flex flex-col rounded-2xl bg-white w-[94vw] p-4 mt-2 gap-y-[20px]">
   <h1 class="text-2xl font-bold">Contact Us</h1>
   <section class="flex flex-col">
     <label for="firstname" class="required">First Name</label>
-    <input type="text" name="firstname" class="h-[7vh]">
+    <input type="text" name="firstname" class="h-[40px] pl-2">
   </section>
 
   <section class="flex flex-col">
     <label for="lastname" class="required">Last Name</label>
-    <input type="text" name="lastname" class="h-[7vh]">
+    <input type="text" name="lastname" class="h-[40px] pl-2">
   </section>
 
   <section class="flex flex-col">
     <label for="email" class="required">Email Address</label>
-    <input type="email" name="email" id="" class="h-[7vh]">
+    <input type="email" name="email" id="" class="h-[40px] pl-2">
     <!--Please enter a valid email address-->
   </section>
-  <section class="flex flex-col">
+  <section class="flex flex-col gap-y-[20px]">
     <h2 class="required">Query Type</h2>
-    <div class="flex flex-row">
+    <div class="radios flex flex-row p-3 pl-4 pr-4">
       <input type="radio" name="general" id="" value="general">
-      <label for="general" class='ml-1'>General Enquiry</h2>
+      <label for="general" class='ml-3'>General Enquiry</h2>
       </div>
-    <div class="flex flex-row">
+    <div class="radios flex flex-row p-3 pl-4 pr-4">
       <input type="radio" name="general" id="" value="support">
-      <label for="support" class='ml-1'>Support Request</label>
+      <label for="support" class='ml-3'>Support Request</label>
     </div>
     <!--Please select a query type-->
     </section>
   <section class="flex flex-col">
     <label for="message" class="required">Message</label>
-    <input type="text" name="message" class="h-[50vh]">
+    <textarea type="text" name="message" class="h-[290px] pl-2 radios"></textarea>
     <!--This field is required-->
   </section>
 
@@ -62,7 +71,7 @@
   </section>
   <!--To submit this form, please consent to being contacted-->
 
-  <button class="p-4 bg-emerald-700 text-white font-bold rounded-md">Submit</button>
+  <button type="submit" class="p-4 bg-green-600 text-white font-bold rounded-md">Submit</button>
 
   <section class="hidden">
     Message Sent!
