@@ -5,45 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <title>Frontend Mentor | Contact form</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+    @font-face {src: url('Karla-Regular.ttf'); font-family: 'Karla'; font-weight: 400;}
+    @font-face {src: url('Karla-Bold.ttf'); font-family: 'Karla'; font-weight: 700;}
+    body{font-family: 'Karla';}
+    input{border: solid hsl(186, 15%, 59%) 1px; border-radius: 4px}
+  </style>
   </style>
 </head>
-<body>
+<body class="bg-green-200 flex flex-col items-center">
+<main class="flex flex-col rounded-2xl bg-white w-xs p-4 mt-2">
+  <h1 class="text-2xl font-bold">Contact Us</h1>
 
-  Contact Us
+  <label for="firstname">First Name</label>
+  <input type="text" name="firstname">
 
-  First Name
+  <label for="lastname">Last Name</label>
+  <input type="text" name="lastname">
+
+  <label for="email">Email Address</label>
+  <input type="email" name="email" id="">
+  <!--Please enter a valid email address-->
+  <section>
+    Query Type
+    <div class="flex flex-row">
+      <input type="radio" name="general" id="" value="general">
+      <label for="general" class='ml-1'>General Enquiry</h2>
+      </div>
+    <div class="flex flex-row">
+      <input type="radio" name="general" id="" value="support">
+      <label for="support" class='ml-1'>Support Request</label>
+    </div>
+    Please select a query type
+    </section>
+  <label for="message">Message</label>
+  <input type="text" name="message">
   This field is required
 
-  Last Name
-  This field is required
-
-  Email Address
-  Please enter a valid email address
-  This field is required
-
-  Query Type
-  General Enquiry
-  Support Request
-  Please select a query type
-
-  Message
-  This field is required
-
-  I consent to being contacted by the team
+  <section class="flex flex-row">
+    <input type="checkbox" name="vazhno" id="">
+    <label for="vazhno" class='ml-1'>I consent to being contacted by the team</label>
+  </section>
   To submit this form, please consent to being contacted
 
-  Submit
+  <button class="p-4 bg-emerald-700 text-white font-bold rounded-md">Submit</button>
 
-  Message Sent!
-  Thanks for completing the form. We'll be in touch soon!
-  
+  <section class="hidden">
+    Message Sent!
+    Thanks for completing the form. We'll be in touch soon!
+  </section>
+</main>
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="https://github.com/r1v3ra-1508">R1V3RA</a>.
