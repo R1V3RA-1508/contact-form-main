@@ -16,6 +16,7 @@
     @font-face {src: url('Karla-Bold.ttf'); font-family: 'Karla'; font-weight: 700;}
     body{font-family: 'Karla';}
     input, .radios{border: solid hsl(186, 15%, 59%) 1px; border-radius: 6px}
+    .wrong{border: solid hsl(0, 66%, 54%) 1px; border-radius: 6px}
     .required::after{content: ' *'; color: hsl(169, 82%, 27%)}
   </style>
   <style type="text/tailwindcss">
@@ -23,55 +24,60 @@
     @theme{
       --color-green-200: hsl(148, 38%, 91%);
       --color-green-600: hsl(169, 82%, 27%);
+      --color-red-400: hsl(0, 66%, 54%);
     }
     label, h2{
       color: hsl(187, 24%, 22%);
     }
   </style>
 </head>
-<body class="bg-green-200 flex flex-col items-center">
-<main class="flex flex-col rounded-2xl bg-white w-[94vw] p-4 mt-2 gap-y-[20px]">
+<body class="bg-green-200 flex flex-col items-center min-h-screen xl:pt-[6vh]">
+<main class="flex flex-col rounded-2xl bg-white w-[94vw] xl:w-[50vw] p-4 mt-2 gap-y-[20px]">
   <h1 class="text-2xl font-bold">Contact Us</h1>
-  <section class="flex flex-col">
-    <label for="firstname" class="required">First Name</label>
-    <input type="text" name="firstname" class="h-[40px] pl-2">
-  </section>
+  <section class="md:flex md:flex-row md:justify-between md:gap-x-[10px]">
+    <section class="flex flex-col md:w-full">
+      <label for="firstname" class="required">First Name</label>
+      <input type="text" id="fn" name="firstname" class="h-[40px] pl-2">
+      <h3 class="text-red-400 hidden" id="empty_fn">This field is required</h3>
+    </section>
 
-  <section class="flex flex-col">
-    <label for="lastname" class="required">Last Name</label>
-    <input type="text" name="lastname" class="h-[40px] pl-2">
+    <section class="flex flex-col md:w-full">
+      <label for="lastname" class="required">Last Name</label>
+      <input type="text" id="ln" name="lastname" class="h-[40px] pl-2">
+      <h3 class="text-red-400 hidden" id="empty_ln">This field is required</h3>
+    </section>
   </section>
 
   <section class="flex flex-col">
     <label for="email" class="required">Email Address</label>
-    <input type="email" name="email" id="" class="h-[40px] pl-2">
-    <!--Please enter a valid email address-->
+    <input type="email" name="email" id="email" class="h-[40px] pl-2">
+    <h3 class="text-red-400 hidden" id="notValidEmail">Please enter a valid email address</h3>
   </section>
   <section class="flex flex-col gap-y-[20px]">
     <h2 class="required">Query Type</h2>
     <div class="radios flex flex-row p-3 pl-4 pr-4">
-      <input type="radio" name="general" id="" value="general">
+      <input type="radio" name="general" id="general" value="general">
       <label for="general" class='ml-3'>General Enquiry</h2>
       </div>
     <div class="radios flex flex-row p-3 pl-4 pr-4">
-      <input type="radio" name="general" id="" value="support">
+      <input type="radio" name="general" id="support" value="support">
       <label for="support" class='ml-3'>Support Request</label>
     </div>
-    <!--Please select a query type-->
+    <h3 class="text-red-400 hidden" id="empty_query">Please select a query type</h3>
     </section>
   <section class="flex flex-col">
     <label for="message" class="required">Message</label>
-    <textarea type="text" name="message" class="h-[290px] pl-2 radios"></textarea>
-    <!--This field is required-->
+    <textarea type="text" id="message" name="message" class="h-[290px] pl-2 radios xl:h-[120px]"></textarea>
+    <h3 class="text-red-400 hidden" id="empty_message">This field is required</h3>
   </section>
 
   <section class="flex flex-row">
-    <input type="checkbox" name="vazhno" id="">
+    <input type="checkbox" name="vazhno" id="checkbox">
     <label for="vazhno" class='ml-5 required'>I consent to being contacted by the team</label>
   </section>
-  <!--To submit this form, please consent to being contacted-->
+  <h3 class="text-red-400 hidden" id="empty_checkbox">To submit this form, please consent to being contacted</h3>
 
-  <button type="submit" class="p-4 bg-green-600 text-white font-bold rounded-md">Submit</button>
+  <button type="submit" onclick="checkAll()" class="p-4 bg-green-600 text-white font-bold rounded-md">Submit</button>
 
   <section class="hidden">
     Message Sent!
@@ -82,5 +88,138 @@
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="https://github.com/r1v3ra-1508">R1V3RA</a>.
   </div>
+  <script type="text/javascript">
+    const fn = document.getElementById('fn');
+    const ln = document.getElementById('ln');
+    const email = document.getElementById('email');
+    const queries = document.querySelector('input[name="general"]:checked');
+    const checkbox = document.getElementById('checkbox');
+
+    const empty_fn = document.getElementById('empty_fn');
+    const empty_ln = document.getElementById('empty_ln');
+    const empty_query = document.getElementById('empty_query');
+    const empty_message = document.getElementById('empty_message');
+    const empty_checkbox = document.getElementById('empty_checkbox')
+    const notValidEmail = document.getElementById('notValidEmail');
+
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+    function check_empty(input){
+      const reg = /^[a-zA-Zа-яА-Я]*$/;
+      return reg.test(input.value);
+    }
+    function check_message(input){
+      const rege = /./;
+      return rege.test(input.value);
+    }
+    function checkAll(){
+      let isValid1, isValid2, isValid3, isValid4, isValid5, isValid6;
+      if (!check_empty(fn)){
+        empty_fn.classList.remove('hidden');
+        isValid1 = false;
+      }
+      else{
+        empty_fn.classList.add('hidden');
+        isValid1 = true;
+      };
+      if (!check_empty(ln)){
+        empty_ln.classList.remove('hidden');
+        let isValid2 = false;
+      }
+      else{
+        empty_ln.classList.add('hidden');
+        isValid2 = true;
+      };
+      if (!validateEmail(email.value)){
+        notValidEmail.classList.remove('hidden');
+        isValid3 = false;
+      }
+      else{
+        notValidEmail.classList.add('hidden');
+        isValid3 = true;
+      };
+      if (!check_message(message)){
+        empty_message.classList.remove('hidden');
+        isValid4 = false;
+      }
+      else{
+        empty_message.classList.add('hidden');
+        isValid4 = true;
+      };
+      if (!queries){
+        empty_query.classList.remove('hidden');
+        isValid5 = false;
+      }
+      else{
+        empty_query.classList.add('hidden');
+        isValid5 = true;
+      }
+      if (!checkbox.checked){
+        empty_checkbox.classList.remove('hidden');
+        isValid6 = false;
+    } else {
+        empty_checkbox.classList.add('hidden');
+        isValid6 = true;
+    }
+
+      if (isValid1 === true && isValid2 === true && isValid3 === true && isValid4 === true && isValid5 === true && isValid6 === true){
+        alert('Ok');
+      }
+      else{
+        console.log('нихуя не работает и я хз почему')
+      }
+    }
+
+    fn.addEventListener('input', function(){
+      if (!check_empty(fn)){
+        empty_fn.classList.remove('hidden');
+        fn.classList.add('wrong');
+      }
+      else{
+        empty_fn.classList.add('hidden');
+        fn.classList.remove('wrong');
+      }
+    })
+    ln.addEventListener('input', function(){
+      if (!check_empty(ln)){
+        empty_ln.classList.remove('hidden');
+        ln.classList.add('wrong');
+      }
+      else{
+        empty_ln.classList.add('hidden');
+        ln.classList.remove('wrong');
+      }
+    })
+    email.addEventListener('input', function(){
+      if (!validateEmail(email.value)){
+        notValidEmail.classList.remove('hidden');
+        email.classList.add('wrong');
+      }
+      else{
+        notValidEmail.classList.add('hidden');
+        email.classList.remove('wrong');
+      }
+    })
+    message.addEventListener('input', function(){
+      if (!check_message(message)){
+        empty_message.classList.remove('hidden');
+        message.classList.add('wrong');
+      }
+      else{
+        empty_message.classList.add('hidden');
+        message.classList.remove('wrong');
+      }
+    })
+    checkbox.addEventListener('input', function(){
+      if (!checkbox.checked){
+        empty_checkbox.classList.remove('hidden');
+    } else {
+        empty_checkbox.classList.add('hidden');
+    }
+    })
+  </script>
 </body>
 </html>
