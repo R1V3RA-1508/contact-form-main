@@ -92,7 +92,6 @@
     const lnvalue = ln.value || 0;
     const sent = document.getElementById('sent');
     const email = document.getElementById('email');
-    const queries = document.querySelector('input[name="general"]:checked');
     const checkbox = document.getElementById('checkbox');
 
     const empty_fn = document.getElementById('empty_fn');
@@ -120,7 +119,8 @@
         sent.classList.add('invisible');
     }, 3000);
     }
-    function checkAll(){
+    function checkAll(){    
+      const queries = document.querySelector('input[name="general"]:checked');
       let isValid1, isValid2, isValid3, isValid4, isValid5, isValid6;
       if (!check_empty(fn)){
         empty_fn.classList.remove('hidden');
@@ -132,7 +132,7 @@
       };
       if (!check_empty(ln)){
         empty_ln.classList.remove('hidden');
-        let isValid2 = false;
+        isValid2 = false;
       }
       else{
         empty_ln.classList.add('hidden');
