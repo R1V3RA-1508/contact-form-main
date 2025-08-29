@@ -25,6 +25,7 @@
       --color-green-200: hsl(148, 38%, 91%);
       --color-green-600: hsl(169, 82%, 27%);
       --color-red-400: hsl(0, 66%, 54%);
+      --color-grey-900: hsl(187, 24%, 22%);
     }
     label, h2{
       color: hsl(187, 24%, 22%);
@@ -32,7 +33,11 @@
   </style>
 </head>
 <body class="bg-green-200 flex flex-col items-center min-h-screen xl:pt-[6vh]">
-<main class="flex flex-col rounded-2xl bg-white w-[94vw] xl:w-[50vw] p-4 mt-2 gap-y-[20px]">
+  <section id="sent" class="bg-grey-900 rounded-xl fixed z-2 mt-[10px] md:mt-0 text-white inline-block select-none w-[75vw] md:w-[50vw] invisible p-4">
+    <img src="icon-success-check.svg" alt="">Message Sent!
+    Thanks for completing the form. We'll be in touch soon!
+  </section>
+<main class="md:absolute md:top-40 flex flex-col rounded-2xl bg-white w-[94vw] xl:w-[50vw] p-4 mt-2 gap-y-[20px]">
   <h1 class="text-2xl font-bold">Contact Us</h1>
   <section class="md:flex md:flex-row md:justify-between md:gap-x-[10px]">
     <section class="flex flex-col md:w-full">
@@ -77,22 +82,18 @@
   </section>
   <h3 class="text-red-400 hidden" id="empty_checkbox">To submit this form, please consent to being contacted</h3>
 
-  <button type="submit" onclick="checkAll()" class="p-4 bg-green-600 text-white font-bold rounded-md">Submit</button>
+  <button id="submit" type="submit" onclick="checkAll()" class="p-4 bg-green-600 text-white font-bold rounded-md">Submit</button>
 
-  <section class="hidden">
-    Message Sent!
-    Thanks for completing the form. We'll be in touch soon!
-  </section>
 </main>
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="https://github.com/r1v3ra-1508">R1V3RA</a>.
-  </div>
   <script type="text/javascript">
     const fn = document.getElementById('fn');
+    const fnvalue = fn.value || 0;
     const ln = document.getElementById('ln');
+    const lnvalue = ln.value || 0;
+    const sent = document.getElementById('sent');
     const email = document.getElementById('email');
     const queries = document.querySelector('input[name="general"]:checked');
+    const radioButtons = document.querySelectorAll('input[name="general"]');
     const checkbox = document.getElementById('checkbox');
 
     const empty_fn = document.getElementById('empty_fn');
@@ -101,7 +102,6 @@
     const empty_message = document.getElementById('empty_message');
     const empty_checkbox = document.getElementById('empty_checkbox')
     const notValidEmail = document.getElementById('notValidEmail');
-
 
     function validateEmail(email) {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,6 +114,12 @@
     function check_message(input){
       const rege = /./;
       return rege.test(input.value);
+    }
+    function showPopup(){
+      sent.classList.remove('invisible');
+      setTimeout(function() {
+        sent.classList.add('invisible');
+    }, 3000);
     }
     function checkAll(){
       let isValid1, isValid2, isValid3, isValid4, isValid5, isValid6;
@@ -166,15 +172,16 @@
     }
 
       if (isValid1 === true && isValid2 === true && isValid3 === true && isValid4 === true && isValid5 === true && isValid6 === true){
-        alert('Ok');
+        showPopup();
       }
       else{
-        console.log('нихуя не работает и я хз почему')
+        console.log('нихуя не работает и я хз почему');
+        document.getElementById('sent').classList.add('invisible');
       }
     }
 
     fn.addEventListener('input', function(){
-      if (!check_empty(fn)){
+      if (!check_empty(fn) && fnvalue == 0){
         empty_fn.classList.remove('hidden');
         fn.classList.add('wrong');
       }
@@ -184,7 +191,7 @@
       }
     })
     ln.addEventListener('input', function(){
-      if (!check_empty(ln)){
+      if (!check_empty(ln) && lnvalue == 0){
         empty_ln.classList.remove('hidden');
         ln.classList.add('wrong');
       }
