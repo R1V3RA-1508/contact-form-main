@@ -60,13 +60,15 @@
   </section>
   <section class="flex flex-col gap-y-[20px]">
     <h2 class="required">Query Type</h2>
-    <div class="radios flex flex-row p-3 pl-4 pr-4">
-      <input type="radio" name="general" id="general" value="general">
-      <label for="general" class='ml-3'>General Enquiry</h2>
+    <div class="radios-wrap md:flex md:flex-row md:space-between md:gap-x-[10px]">
+      <div class="radios flex flex-row md:w-full p-3 pl-4 pr-4">
+        <input type="radio" name="general" id="general" value="general">
+        <label for="general" class='ml-3'>General Enquiry</h2>
+        </div>
+      <div class="radios flex flex-row md:w-full p-3 pl-4 pr-4">
+        <input type="radio" name="general" id="support" value="support">
+        <label for="support" class='ml-3'>Support Request</label>
       </div>
-    <div class="radios flex flex-row p-3 pl-4 pr-4">
-      <input type="radio" name="general" id="support" value="support">
-      <label for="support" class='ml-3'>Support Request</label>
     </div>
     <h3 class="text-red-400 hidden" id="empty_query">Please select a query type</h3>
     </section>
